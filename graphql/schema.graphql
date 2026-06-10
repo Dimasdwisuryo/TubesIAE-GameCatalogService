@@ -1,0 +1,20 @@
+type Query {
+    games: [Game!]! @all
+    game(slug: String! @eq): Game @find
+    denominations(game_id: ID! @where(key: "game_id")): [Denomination!]! @all
+}
+
+type Game {
+    id: ID!
+    name: String!
+    slug: String!
+    image_url: String
+    denominations: [Denomination!]! @hasMany
+}
+
+type Denomination {
+    id: ID!
+    name: String!
+    price: Int!
+    game: Game! @belongsTo
+}
